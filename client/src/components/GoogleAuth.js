@@ -1,10 +1,9 @@
 import React from 'react';
 
-class GoogleAuth extends React.Component {
+import { connect } from 'react-redux';
+import { setSignIn } from '../actions';
 
-    state = {
-        isSignedIn : null
-    };
+class GoogleAuth extends React.Component {
 
     componentDidMount() {
         window.gapi.load('auth2', () => {
@@ -13,18 +12,17 @@ class GoogleAuth extends React.Component {
                 plugin_name: "Streamer-VG"
             }).then(() => {
                 this.auth = window.gapi.auth2.getAuthInstance();
-                this.setState({
-                    isSignedIn: this.auth.isSignedIn.get()
-                });
+                this.signInChanged(this.auth.isSignedIn.get());
                 this.auth.isSignedIn.listen(this.signInChanged);
             });
         });
     }
 
     signInChanged = (isSignedIn) => {
-        this.setState({
-            isSignedIn: isSignedIn
-        });
+        const userId = isSignedIn ?
+            this.auth.currentUser.get().getId() :
+            null;
+        this.props.setSignIn(isSignedIn, userId);
     }
 
     signIn = () => {
@@ -36,7 +34,7 @@ class GoogleAuth extends React.Component {
     };
 
     render() {
-        if (this.state.isSignedIn === true) {
+        if (this.props.isSignedIn === true) {
             return (
                 <button className="ui red google button"
                     onClick={this.signOut}>
@@ -45,7 +43,7 @@ class GoogleAuth extends React.Component {
                 </button>
             );
         }
-        if (this.state.isSignedIn === false) {
+        if (this.props.isSignedIn === false) {
 
             return (
                 <button className="ui red google button"
@@ -59,4 +57,10 @@ class GoogleAuth extends React.Component {
     }
 }
 
-export default GoogleAuth;
+const mapStateToProps = ({ auth }) => ({
+    isSignedIn: auth.isSignedIn
+});
+
+export default connect(mapStateToProps, {
+    setSignIn
+})(GoogleAuth);
