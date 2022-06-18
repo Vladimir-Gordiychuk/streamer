@@ -15,10 +15,12 @@ class StreamShow extends React.Component {
             return <div>Stream not found.</div>;
         }
 
+        const { title, description } = this.props.stream;
+
         return (
             <div>
-                <h2>{this.props.stream.title}</h2>
-                {this.props.stream.description}
+                <h3>{title}</h3>
+                {description}
             </div>
             );
     }
