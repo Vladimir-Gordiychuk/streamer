@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchStream, deleteStream } from '../../actions';
-import StreamForm from './StreamForm';
 import Modal from '../Modal';
 import history from '../../history';
 
@@ -27,9 +26,12 @@ const StreamDelete = (props) => {
 
     return (
         <Modal onExit={onCancel}>
-            <div className="header">Delete Stream</div>
+            <div className="header">Are you sure that you want to delete this Stream?</div>
             <div className="content">
-                <StreamForm initialValues={props.stream} />
+                <h4>{props.stream.title}</h4>
+                <p>
+                    {props.stream.description}
+                </p>
             </div>
             <div className="actions">
                 <div className="ui button negative" onClick={onApprove}>Delete</div>
