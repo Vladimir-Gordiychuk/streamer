@@ -25,7 +25,7 @@ const StreamEdit = (props) => {
     return (
         <div>
             <h3>Edit Stream</h3>
-            <StreamForm onSubmit={onSubmit} />;
+            <StreamForm onSubmit={onSubmit} initialValues={props.stream} />;
         </div>
         ); 
 };
