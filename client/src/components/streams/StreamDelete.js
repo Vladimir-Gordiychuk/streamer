@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchStream, deleteStream } from '../../actions';
 import StreamForm from './StreamForm';
+import Modal from '../Modal';
 
 const StreamDelete = (props) => {
 
@@ -11,7 +12,7 @@ const StreamDelete = (props) => {
         }
     }, []);
 
-    const onSubmit = (formValues) => {
+    const onApprove = () => {
         props.deleteStream(props.stream.id);
     };
 
@@ -20,10 +21,16 @@ const StreamDelete = (props) => {
     }
 
     return (
-        <div>
-            <h3>Delete Stream</h3>
-            <StreamForm onSubmit={onSubmit} initialValues={props.stream} />
-        </div>
+        <Modal>
+            <div className="header">Delete Stream</div>
+            <div className="content">
+                <StreamForm initialValues={props.stream} />
+            </div>
+            <div className="actions">
+                <div className="ui button negative" onClick={onApprove}>Delete</div>
+                <div className="ui cancel button">Cancel</div>
+            </div>
+        </Modal>
     );
 };
 
