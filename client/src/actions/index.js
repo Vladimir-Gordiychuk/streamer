@@ -1,3 +1,6 @@
+import history from '../history';
+import streamer from '../apis/streamer';
+
 import {
     USER_AUTH,
     STREAMS_FETCH,
@@ -6,8 +9,6 @@ import {
     STREAM_DELETE,
     STREAM_UPDATE
 } from './types';
-
-import streamer from '../apis/streamer';
 
 export const setSignIn = (isSignedIn, id) => {
     return {
@@ -30,6 +31,7 @@ export const createStream = (stream) => async (dispatch, getState) => {
         type: STREAM_CREATE,
         payload: createdStream
     });
+    history.push('/');
 };
 
 export const fetchStreams = () => async dispatch => {
