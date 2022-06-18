@@ -23,9 +23,9 @@ export default {
     /**
      * Get specific stream by id.
      * @param {number} id Stream id.
-     * @returns {Promise<{id: number, title: string, description: string}>}
+     * @returns {Promise<{id: number, userId: string, title: string, description: string}>}
      */
-    getStream : async (id) => {
+    getStream: async (id) => {
         const response = await api.get(`/streams/${id}`);
         if (response.error) {
             throw Error(response.error);
@@ -35,8 +35,8 @@ export default {
 
     /**
      * Create new stream object.
-     * @param {{ title: string, description : string}} stream Stream object.
-     * @returns {Promise<{id: number, title: string, description: string}>} Returns newly created stream record (with id).
+     * @param {{ userId: string, title: string, description : string}} stream Stream object.
+     * @returns {Promise<{id: number, userId: string, title: string, description: string}>} Returns newly created stream record (with id).
      */
     createStream : async (stream) => {
         const response = await api.post('/streams', stream);
@@ -48,8 +48,8 @@ export default {
 
     /**
      * Updates existing stream object.
-     * @param {{ id: number, title: string, description : string}} stream Updated stream object.
-     * @returns {Promise<{id: number, title: string, description: string}>} Updated stream object.
+     * @param {{ id: number, userId: string, title: string, description : string}} stream Updated stream object.
+     * @returns {Promise<{id: number, userId: string, title: string, description: string}>} Updated stream object.
      */
     updateStream: async (stream) => {
         const response = await api.put(`/streams/${stream.id}`, stream);
