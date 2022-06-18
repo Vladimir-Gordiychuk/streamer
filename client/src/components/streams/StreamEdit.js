@@ -14,8 +14,9 @@ const StreamEdit = (props) => {
 
     const onSubmit = (formValues) => {
         props.updateStream({
-            ...props.stream,
-            ...formValues
+            ...formValues,
+            id: props.stream.id,
+            userId: props.stream.userId
         });
     };
 
