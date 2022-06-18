@@ -22,7 +22,12 @@ const StreamEdit = (props) => {
     if (!props.stream) {
         return <div>Specified stream not found!</div>
     }
-    return <StreamForm onSubmit={onSubmit} />;
+    return (
+        <div>
+            <h3>Edit Stream</h3>
+            <StreamForm onSubmit={onSubmit} />;
+        </div>
+        ); 
 };
 
 const mapStateToProps = ({ streams }, ownProps) => ({
