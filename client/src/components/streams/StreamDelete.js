@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchStream, deleteStream } from '../../actions';
 import StreamForm from './StreamForm';
 import Modal from '../Modal';
+import history from '../../history';
 
 const StreamDelete = (props) => {
 
@@ -16,19 +17,23 @@ const StreamDelete = (props) => {
         props.deleteStream(props.stream.id);
     };
 
+    const onCancel = () => {
+        history.goBack();
+    }
+
     if (!props.stream) {
         return <div>Specified stream not found.</div>
     }
 
     return (
-        <Modal>
+        <Modal onExit={onCancel}>
             <div className="header">Delete Stream</div>
             <div className="content">
                 <StreamForm initialValues={props.stream} />
             </div>
             <div className="actions">
                 <div className="ui button negative" onClick={onApprove}>Delete</div>
-                <div className="ui cancel button">Cancel</div>
+                <div className="ui cancel button" onClick={onCancel}>Cancel</div>
             </div>
         </Modal>
     );
