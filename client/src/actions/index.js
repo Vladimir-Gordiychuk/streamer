@@ -59,6 +59,15 @@ export const updateStream = (stream) => async dispatch => {
     history.push('/');
 };
 
+export const patchStream = (id, stream) => async dispatch => {
+    const responseStream = await streamer.patchStream(id, stream);
+    dispatch({
+        type: STREAM_UPDATE,
+        payload: responseStream
+    });
+    history.push('/');
+};
+
 export const deleteStream = (id) => async dispatch => {
     await streamer.deleteStream(id);
     dispatch({
