@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
-import history from '../history';
 
 const Modal = (props) => {
 
@@ -10,7 +9,7 @@ const Modal = (props) => {
         if (modal.current.contains(event.target))
             return;
 
-        history.goBack();
+        props.onExit();
     }
 
     return ReactDOM.createPortal(
