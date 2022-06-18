@@ -47,12 +47,26 @@ export default {
     },
 
     /**
-     * Updates existing stream object.
+     * Updates existing stream object (entirely).
      * @param {{ id: number, userId: string, title: string, description : string}} stream Updated stream object.
      * @returns {Promise<{id: number, userId: string, title: string, description: string}>} Updated stream object.
      */
     updateStream: async (stream) => {
         const response = await api.put(`/streams/${stream.id}`, stream);
+        if (response.error) {
+            throw Error(response.error);
+        }
+        return response.data;
+    },
+
+    /**
+     * Update specific properties of the stram object.
+     * @param {number} id An id othe stream to update.
+     * @param {{ userId: string, title: string, description : string}} stream 
+     * An object with the list of properties to update. All properties are optional.
+     */
+    patchStream: async (id, stream) => {
+        const response = await api.patch(`/streams/${id}`, stream);
         if (response.error) {
             throw Error(response.error);
         }
