@@ -56,6 +56,7 @@ export const updateStream = (stream) => async dispatch => {
         type: STREAM_UPDATE,
         payload: responseStream
     });
+    history.push('/');
 };
 
 export const deleteStream = (id) => async dispatch => {
@@ -64,4 +65,5 @@ export const deleteStream = (id) => async dispatch => {
         type: STREAM_DELETE,
         payload: id
     });
+    history.push('/');
 };
