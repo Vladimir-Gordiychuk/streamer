@@ -1,2 +1,6 @@
 export const USER_AUTH = 'USER_AUTH';
 export const STREAM_CREATE = 'STREAM_CREATE';
+export const STREAM_FETCH = 'STREAM_FETCHED';
+export const STREAM_DELETE = 'STREAM_DELETED';
+export const STREAM_UPDATE = 'STREAM_UPDATED';
+export const STREAMS_FETCH = 'STREAMS_FETCHED';
