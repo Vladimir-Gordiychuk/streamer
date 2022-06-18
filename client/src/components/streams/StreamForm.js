@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Form, Field } from 'react-final-form';
 
 /**
  * A form to edit stream properties.
@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form';
  */
 class StreamForm extends React.Component {
 
-    renderError({ error, touched }) {
+    renderError = ({ error, touched }) => {
         if (touched && error) {
             return (
                 <div className="ui error message">
@@ -32,33 +32,47 @@ class StreamForm extends React.Component {
         );
     }
 
+    /**
+     * Submit form values.
+     * @param {{ title : string, description : string }} formValues
+     */
     onSubmit = (formValues) => {
         this.props.onSubmit(formValues);
+    }
+
+    validate(formValues) {
+        const errors = {};
+        if (!formValues.title)
+            errors.title = 'Title must not be empty.';
+        if (!formValues.description)
+            errors.description = 'Description must not be empty.'
+        return errors;
+    };
+
+    renderBody = ({ handleSubmit  }) => {
+        return (
+            <form className="ui form error" onSubmit={handleSubmit}>
+                <Field name="title" component={this.renderInput} label="Enter Title" />
+                <Field name="description" component={this.renderInput} label="Enter Description" />
+                <button className="ui button primary">Submit</button>
+            </form>
+            );
     }
 
     render() {
 
         return (
-            <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                <Field name="title" component={this.renderInput} label="Enter Title"/>
-                <Field name="description" component={this.renderInput} label="Enter Description" />
-                <button className="ui button primary">Submit</button>
-            </form>
+            <Form
+                initialValues={this.props.initialValues}
+                onSubmit={this.onSubmit}
+                render={this.renderBody}
+            >
+            </Form>
         );
     }
 
 }
 
-const validate = (formValues) => {
-    const errors = {};
-    if (!formValues.title)
-        errors.title = 'Title must not be empty.';
-    if (!formValues.description)
-        errors.description = 'Description must not be empty.'
-    return errors;
-};
 
-export default reduxForm({
-    form: 'streamForm',
-    validate
-})(StreamForm);
+
+export default StreamForm;
